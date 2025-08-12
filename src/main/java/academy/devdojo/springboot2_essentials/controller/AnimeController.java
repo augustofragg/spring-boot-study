@@ -15,10 +15,8 @@ import java.util.List;
 @RestController
 @RequestMapping("animes")
 @Log4j2
-//@AllArgsConstructor
 @RequiredArgsConstructor
 public class AnimeController {
-    //@Autowired
     private final DateUtil dateUtil;
     private final AnimeService animeService;
 
