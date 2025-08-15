@@ -1,6 +1,7 @@
 package academy.devdojo.springboot2_essentials.service;
 
 import academy.devdojo.springboot2_essentials.domain.Anime;
+import academy.devdojo.springboot2_essentials.mapper.AnimeMapper;
 import academy.devdojo.springboot2_essentials.repository.AnimeRepository;
 import academy.devdojo.springboot2_essentials.requests.AnimePostRequestBody;
 import academy.devdojo.springboot2_essentials.requests.AnimePutRequestBody;
@@ -27,9 +28,11 @@ public class AnimeService  {
     }
 
     public Anime save(AnimePostRequestBody animePostRequestBody) {
-        Anime animeSave = Anime.builder()
-                .name(animePostRequestBody.getName())
-                .build();
+//        Anime animeSave = Anime.builder()
+//                .name(animePostRequestBody.getName())
+//                .build();
+
+        Anime animeSave = AnimeMapper.INSTANCE.toAnime(animePostRequestBody);
         return animeRepository.save(animeSave);
     }
 
@@ -39,10 +42,13 @@ public class AnimeService  {
 
     public void replace(AnimePutRequestBody animePutRequestBody) {
         Anime savedAnime = findByIdOrBadRequestException(animePutRequestBody.getId());
-        Anime animeSave = Anime.builder()
-                .id(savedAnime.getId())
-                .name(animePutRequestBody.getName())
-                .build();
+//        Anime animeSave = Anime.builder()
+//                .id(savedAnime.getId())
+//                .name(animePutRequestBody.getName())
+//                .build();
+
+        Anime animeSave = AnimeMapper.INSTANCE.toAnime(animePutRequestBody);
+        animeSave.setId(savedAnime.getId());
         animeRepository.save(animeSave);
     }
 }
